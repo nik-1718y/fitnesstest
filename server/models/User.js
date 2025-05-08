@@ -22,6 +22,7 @@ const UserSchema = new mongoose.Schema(
     age: {
       type: Number,
     },
+    
   },
   { timestamps: true }
 );

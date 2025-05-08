@@ -9,6 +9,8 @@ import Workouts from "./pages/Workouts";
 import Contact from './pages/Contact';
 import { useSelector } from 'react-redux';
 import WorkoutSuggestion from "./pages/WorkoutSuggestion"
+import CalorieTracker from"./pages/CalorieTracker"
+import YogaSuggestions from './pages/YogaSuggestions';
 
 
 
@@ -37,6 +39,8 @@ function App() {
               <Route path="/workouts" exact element={<Workouts />} />
               <Route path="/contact" exact element={<Contact />} />
               <Route path="/WorkoutSuggestion" exact element={<WorkoutSuggestion />} />
+              <Route path="/calorieTracker" exact element={<CalorieTracker />} />
+              <Route path="/yogaSuggestions" exact element={<YogaSuggestions />} />
             </Routes>
       </Container>
       ):(

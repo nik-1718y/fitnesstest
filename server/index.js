@@ -58,6 +58,7 @@ import  dotenv from "dotenv";
 import cors from "cors";
 import mongoose from "mongoose";
 import UserRoutes from "./routes/User.js";
+import { seedData} from "./seedYoga.js";  
 
 dotenv.config();  // Load environment variables
 
@@ -89,9 +90,12 @@ const connectDB = () => {
   mongoose.set("strictQuery", true);
   mongoose
     .connect(process.env.MONGODB_URL)
-    .then(() => console.log("Connected to Mongo DB"))
+    .then(() => {console.log("Connected to Mongo DB")
+      // seedData(); 
+    })
     .catch((err) => {
       console.error("Failed to connect with Mongo:", err); // Log more details here
+      seedData();  
     });
 };
 

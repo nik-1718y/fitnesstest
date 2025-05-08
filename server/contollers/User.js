@@ -414,16 +414,87 @@ export const addBmi = async (req, res) => {
 
 
 
+// export const getWorkoutSuggestions = async (req, res, next) => {
+//   try {
+//     const userId = req.user?.id;
+//     const user = await User.findById(userId);
+//     if (!user) return next(createError(404, "User not found"));
+
+//     const pastWorkouts = await Workout.find({ user: userId }).sort({ date: -1 }).limit(10);
+
+//     const suggestions = [];
+
+//     if (user.goal === "fat loss") {
+//       suggestions.push(
+//         "30 min HIIT session",
+//         "Jump rope 15 min",
+//         "Cycling 45 min",
+//         "Bodyweight circuit: squats, push-ups, lunges"
+//       );
+//     } else if (user.goal === "muscle gain") {
+//       suggestions.push(
+//         "Push Day: Bench press, Shoulder press, Tricep dips",
+//         "Pull Day: Deadlift, Pull-ups, Rows",
+//         "Leg Day: Squats, Leg press, Lunges"
+//       );
+//     } else if (user.goal === "endurance") {
+//       suggestions.push(
+//         "Jogging 45 min",
+//         "Swimming 30 min",
+//         "Stair climbing 20 min"
+//       );
+//     } else {
+//       suggestions.push("Full-body light workout", "Walk 10,000 steps");
+//     }
+
+//     if (user.injuries.includes("knee")) {
+//       suggestions.push("Avoid: Squats, running. Try seated workouts.");
+//     }
+
+//     // Save suggestion to DB
+//     const newSuggestion = new Suggestion({
+//       user: user._id,
+//       goal: user.goal,
+//       suggestions,
+//     });
+//     await newSuggestion.save();
+
+//     return res.status(200).json({
+//       goal: user.goal,
+//       suggestions,
+//       basedOn: pastWorkouts.length ? "history + goal" : "goal",
+//       saved: true,
+//     });
+//   } catch (err) {
+//     next(err);
+//   }
+// };
+ 
+
+
+
+
+
 export const getWorkoutSuggestions = async (req, res, next) => {
   try {
-    const userId = req.user?.id;
-    const user = await User.findById(userId);
-    if (!user) return next(createError(404, "User not found"));
+    const userId = req.user?.id; // Extract userId from token or request
 
+    if (!userId) {
+      return next(createError(401, "Unauthorized: No user ID found"));
+    }
+
+    // Find the user by ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return next(createError(404, "User not found"));
+    }
+
+    // Fetch past workouts for the user
     const pastWorkouts = await Workout.find({ user: userId }).sort({ date: -1 }).limit(10);
 
     const suggestions = [];
 
+    // Determine workout suggestions based on user's goal
     if (user.goal === "fat loss") {
       suggestions.push(
         "30 min HIIT session",
@@ -447,16 +518,18 @@ export const getWorkoutSuggestions = async (req, res, next) => {
       suggestions.push("Full-body light workout", "Walk 10,000 steps");
     }
 
-    if (user.injuries.includes("knee")) {
+    // Check if user.injuries is an array and includes "knee"
+    if (user.injuries && Array.isArray(user.injuries) && user.injuries.includes("knee")) {
       suggestions.push("Avoid: Squats, running. Try seated workouts.");
     }
 
-    // Save suggestion to DB
+    // Save suggestion to the database
     const newSuggestion = new Suggestion({
       user: user._id,
       goal: user.goal,
       suggestions,
     });
+
     await newSuggestion.save();
 
     return res.status(200).json({
@@ -466,11 +539,165 @@ export const getWorkoutSuggestions = async (req, res, next) => {
       saved: true,
     });
   } catch (err) {
+    console.error("Error in getWorkoutSuggestions:", err.message);  // Log the error for debugging
+    return next(createError(500, "Internal Server Error"));
+  }
+};
+
+
+// import Calorie from "../models/Calorie.js";
+
+// export const addCalorie = async (req, res, next) => {
+//   try {
+//     const newEntry = new Calorie({ ...req.body, user: req.user.id });
+//     await newEntry.save();
+//     res.status(201).json(newEntry);
+//   } catch (err) {
+//     next(err);
+//   }
+// };
+
+// export const getCalories = async (req, res, next) => {
+//   try {
+//     const entries = await Calorie.find({ user: req.user.id }).sort({ date: -1 });
+//     res.status(200).json(entries);
+//   } catch (err) {
+//     next(err);
+//   }
+// };
+
+
+
+
+import Calorie from "../models/Calorie.js";
+
+// export const addCalorie = async (req, res, next) => {
+//   try {
+//     const newEntry = new Calorie({ ...req.body, user: req.user.id });
+//     await newEntry.save();
+//     res.status(201).json(newEntry);
+//   } catch (err) {
+//     next(err);
+//   }
+// };
+
+// export const addCalorie = async (req, res, next) => {
+//   try {
+//     // Ensure the userId exists
+//     const userId = req.user?.id;
+//     if (!userId) {
+//       return res.status(400).json({ message: "User not authenticated" });
+//     }
+
+//     const { food, calories } = req.body;
+
+//     // Validate input fields
+//     if (!food || !calories) {
+//       return res.status(400).json({ message: "Food and calories are required" });
+//     }
+
+//     // Ensure calories is a valid number
+//     const calorieValue = Number(calories);
+//     if (isNaN(calorieValue)) {
+//       return res.status(400).json({ message: "Calories must be a number" });
+//     }
+
+//     const today = new Date();
+//     today.setHours(0, 0, 0, 0);
+//     const tomorrow = new Date(today);
+//     tomorrow.setDate(today.getDate() + 1);
+
+//     // Find today's total so far
+//     const todayEntries = await Calorie.find({
+//       user: userId,
+//       date: { $gte: today, $lt: tomorrow },
+//     });
+
+//     const existingTotal = todayEntries.reduce((sum, entry) => sum + entry.calories, 0);
+//     const newTotal = existingTotal + calorieValue;
+
+//     const newEntry = new Calorie({
+//       user: userId,
+//       food,
+//       calories: calorieValue,
+//       totalCalories: newTotal,
+//     });
+
+//     await newEntry.save();
+//     res.status(201).json({ message: "Calorie added successfully", newEntry });
+//   } catch (err) {
+//     // Return error response with status and message
+//     next(err);
+//   }
+// };
+
+// import Calorie from "../models/Calorie.js";
+
+export const addCalorie = async (req, res, next) => {
+  try {
+    const newEntry = new Calorie({ ...req.body, user: req.user.id });
+    await newEntry.save();
+    res.status(201).json(newEntry);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getCalories = async (req, res, next) => {
+  try {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const entries = await Calorie.find({
+      user: req.user.id,
+      date: { $gte: today, $lt: tomorrow },
+    }).sort({ date: -1 });
+
+    const totalCalories = entries.reduce((sum, item) => sum + item.calories, 0);
+
+    res.status(200).json({ entries, totalCalories });
+  } catch (err) {
     next(err);
   }
 };
 
 
 
+
+// export const getCalories = async (req, res, next) => {
+//   try {
+//     const today = new Date();
+//     today.setHours(0, 0, 0, 0);
+//     const tomorrow = new Date(today);
+//     tomorrow.setDate(today.getDate() + 1);
+
+//     const entries = await Calorie.find({
+//       user: req.user.id,
+//       date: { $gte: today, $lt: tomorrow },
+//     }).sort({ date: -1 });
+
+//     const totalCalories = entries.reduce((sum, item) => sum + item.calories, 0);
+
+//     res.status(200).json({ entries, totalCalories });
+//   } catch (err) {
+//     next(err);
+//   }
+// };
+
+
+// controllers/yogaController.js
+import Yoga from "../models/Yoga.js";
+
+export const getYogaByGoal = async (req, res) => {
+  try {
+    const { goal } = req.query;
+    const suggestions = await Yoga.find({ goal: { $regex: new RegExp(goal, "i") } });
+    res.json(suggestions);
+  } catch (err) {
+    res.status(500).json({ message: "Server error fetching yoga suggestions." });
+  }
+};
 
 
