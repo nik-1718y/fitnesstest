@@ -1,76 +1,156 @@
-// // YogaSuggestions.jsx
+
 // import React, { useState } from "react";
-// import axios from "axios";
+// import { getYogaByGoal } from "../api";
 
 // const YogaSuggestions = () => {
 //   const [goal, setGoal] = useState("");
 //   const [yogaList, setYogaList] = useState([]);
 
+//   const fetchYoga = async () => {
+//     if (!goal.trim()) {
+//       alert("Please enter a goal before fetching workout suggestions.");
+//       return;
+//     }
 
-
-
-// const fetchYoga = async () => {
 //     try {
-//       const token = localStorage.getItem("fitness"); // get token from local storage
-  
-//       const res = await axios.get(`http://localhost:8080/api/user/suggest?goal=${goal}`, {
-//         headers: { Authorization: `Bearer ${token}` }, // send token here
-//       });
-  
-//       setYogaList(res.data);
+//       const token = localStorage.getItem("fitness");
+//       if (!token) {
+//         console.error("No token found in localStorage");
+//         return;
+//       }
+
+//       const data = await getYogaByGoal(token, goal);
+//       setYogaList(data);
 //     } catch (err) {
-//       console.error("Error fetching yoga suggestions:", err.message);
+//       console.error("Error fetching workout suggestions:", err.message);
 //     }
 //   };
-  
 
 //   return (
-//     <div style={styles.container}>
-//       <h2>Yoga Advisor</h2>
+//     <div className="container">
+//       <h2 className="heading">Workout Advisor</h2>
 //       <input
 //         type="text"
-//         placeholder="Enter your goal (e.g. weight loss)"
+//         placeholder="Enter your goal (e.g. arm strength)"
 //         value={goal}
 //         onChange={(e) => setGoal(e.target.value)}
-//         style={styles.input}
+//         className="input"
 //       />
-//       <button onClick={fetchYoga} style={styles.button}>Get Yoga Suggestions</button>
-//       <div style={styles.grid}>
+//       <button onClick={fetchYoga} className="button">
+//         Get Workout Suggestions
+//       </button>
+
+//       <div className="grid">
 //         {yogaList.map((yoga) => (
-//           <div key={yoga._id} style={styles.card}>
+//           <div key={yoga._id} className="card">
 //             <h3>{yoga.title}</h3>
-//             <img src={yoga.image} alt={yoga.title} style={styles.image} />
-//             <iframe
-//               width="100%"
-//               height="200"
-//               src={yoga.video}
-//               title={yoga.title}
-//               allowFullScreen
-//             ></iframe>
+//             <div className="media-flex">
+//               {yoga.image && (
+//                 <img src={yoga.image} alt={yoga.title} className="image" />
+//               )}
+//               {yoga.video && (
+//                 <iframe
+//                   className="video"
+//                   src={yoga.video}
+//                   title={yoga.title}
+//                   allowFullScreen
+//                 ></iframe>
+//               )}
+//             </div>
 //           </div>
 //         ))}
 //       </div>
+
+//       {/* Internal CSS */}
+//       <style>
+//         {`
+//           .container {
+//             max-width: 1000px;
+//             margin: 0 auto;
+//             padding: 2rem;
+//           }
+
+//           .heading {
+//             text-align: center;
+//             font-size: 2rem;
+//             margin-bottom: 1rem;
+//           }
+
+//           .input {
+//             padding: 10px;
+//             font-size: 16px;
+//             width: 100%;
+//             margin-bottom: 10px;
+//             border: 1px solid #ccc;
+//             border-radius: 6px;
+//           }
+
+//           .button {
+//             padding: 10px 20px;
+//             font-size: 16px;
+//             background-color: #28a745;
+//             color: white;
+//             border: none;
+//             border-radius: 6px;
+//             cursor: pointer;
+//             transition: background-color 0.3s ease;
+//           }
+
+//           .button:hover {
+//             background-color: #218838;
+//           }
+
+//           .grid {
+//             display: grid;
+//             grid-template-columns: 1fr;
+//             gap: 20px;
+//             margin-top: 20px;
+//           }
+
+//           .card {
+//             border: 1px solid #ccc;
+//             border-radius: 8px;
+//             padding: 15px;
+//             background-color: #f9f9f9;
+//             transition: transform 0.2s ease;
+//           }
+
+//           .card:hover {
+//             transform: scale(1.02);
+//           }
+
+//           .media-flex {
+//             display: flex;
+//             justify-content: space-between;
+//             align-items: center;
+//             gap: 20px;
+//             margin-top: 10px;
+//             flex-wrap: wrap;
+//           }
+
+//           .image, .video {
+//             flex: 1 1 45%;
+//             height: 200px;
+//             border-radius: 6px;
+//             object-fit: cover;
+//             border: none;
+//           }
+
+//           .video {
+//             width: 100%;
+//           }
+//         `}
+//       </style>
 //     </div>
 //   );
-// };
-
-// const styles = {
-//   container: { maxWidth: "800px", margin: "0 auto", padding: "20px" },
-//   input: { padding: "10px", fontSize: "16px", width: "100%", marginBottom: "10px" },
-//   button: { padding: "10px 20px", fontSize: "16px", backgroundColor: "#28a745", color: "white", border: "none", cursor: "pointer" },
-//   grid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", marginTop: "20px" },
-//   card: { border: "1px solid #ccc", borderRadius: "8px", padding: "10px", textAlign: "center", backgroundColor: "#f9f9f9" },
-//   image: { width: "100%", height: "150px", objectFit: "cover", marginBottom: "10px" },
 // };
 
 // export default YogaSuggestions;
 
 
 
-
-
 import React, { useState } from "react";
-import { getYogaByGoal } from "../api"; // Import the correct API method
+import { getYogaByGoal } from "../api";
 
 const YogaSuggestions = () => {
   const [goal, setGoal] = useState("");
@@ -78,7 +158,7 @@ const YogaSuggestions = () => {
 
   const fetchYoga = async () => {
     if (!goal.trim()) {
-      alert("Please enter a goal before fetching yoga suggestions.");
+      alert("Please enter a goal before fetching workout suggestions.");
       return;
     }
 
@@ -89,100 +169,134 @@ const YogaSuggestions = () => {
         return;
       }
 
-      const data = await getYogaByGoal(token, goal); // Use API helper function
+      const data = await getYogaByGoal(token, goal);
       setYogaList(data);
     } catch (err) {
-      // console.error("Error fetching yoga suggestions:", err.message);
-    //    console.error("Error fetching yoga suggestions:", err.response?.data?.message || err.message);
-    // alert("Something went wrong while fetching yoga suggestions.");
+      console.error("Error fetching workout suggestions:", err.message);
     }
   };
 
   return (
-    <div style={styles.container}>
-      <h2>Yoga Advisor</h2>
+    <div className="container">
+      <h2 className="heading">Workout Advisor</h2>
       <input
         type="text"
-        placeholder="Enter your goal (e.g. weight loss)"
+        placeholder="Enter your goal (e.g. arm strength)"
         value={goal}
         onChange={(e) => setGoal(e.target.value)}
-        style={styles.input}
+        className="input"
       />
-      <button onClick={fetchYoga} style={styles.button}>
-        Get Yoga Suggestions
+      <button onClick={fetchYoga} className="button">
+        Get Workout Suggestions
       </button>
 
-      <div style={styles.grid}>
+      <div className="grid">
         {yogaList.map((yoga) => (
-          <div key={yoga._id} style={styles.card}>
+          <div key={yoga._id} className="card">
             <h3>{yoga.title}</h3>
-            {/* <img src={yoga.image} alt={yoga.title} style={styles.image} /> */}
-            {yoga.image && (
-  <img src={yoga.image} alt={yoga.title} style={styles.image} />
-)}
-{yoga.video && (
-  <iframe
-    width="100%"
-    height="200"
-    src={yoga.video}
-    title={yoga.title}
-    allowFullScreen
-  ></iframe>
-)}
-{/* 
-            <iframe
-              width="100%"
-              height="200"
-              src={yoga.video}
-              title={yoga.title}
-              allowFullScreen
-            ></iframe> */}
+            <div className="media-flex">
+              {yoga.image && (
+                <img src={yoga.image} alt={yoga.title} className="image" />
+              )}
+              {yoga.video && (
+                <iframe
+                  className="video"
+                  src={yoga.video}
+                  title={yoga.title}
+                  allowFullScreen
+                ></iframe>
+              )}
+            </div>
           </div>
         ))}
       </div>
+
+      {/* Internal CSS */}
+      <style>
+        {`
+          .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+          }
+
+          .heading {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #007AFF;
+          }
+
+          .input {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+          }
+
+          .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+          }
+
+          .button:hover {
+            background-color: #218838;
+          }
+
+          .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 20px;
+            max-height: 500px; /* Set a max height */
+            overflow-y: auto;  /* Enable vertical scrolling */
+          }
+
+          .card {
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            transition: transform 0.2s ease;
+          }
+
+          .card:hover {
+            transform: scale(1.02);
+          }
+
+          .media-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+          }
+
+          .image, .video {
+            flex: 1 1 45%;
+            height: 200px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: none;
+          }
+
+          .video {
+            width: 100%;
+          }
+        `}
+      </style>
     </div>
   );
 };
 
-const styles = {
-  container: {
-    maxWidth: "800px",
-    margin: "0 auto",
-    padding: "20px",
-  },
-  input: {
-    padding: "10px",
-    fontSize: "16px",
-    width: "100%",
-    marginBottom: "10px",
-  },
-  button: {
-    padding: "10px 20px",
-    fontSize: "16px",
-    backgroundColor: "#28a745",
-    color: "white",
-    border: "none",
-    cursor: "pointer",
-  },
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: "20px",
-    marginTop: "20px",
-  },
-  card: {
-    border: "1px solid #ccc",
-    borderRadius: "8px",
-    padding: "10px",
-    textAlign: "center",
-    backgroundColor: "#f9f9f9",
-  },
-  image: {
-    width: "100%",
-    height: "150px",
-    objectFit: "cover",
-    marginBottom: "10px",
-  },
-};
-
 export default YogaSuggestions;
+

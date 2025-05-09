@@ -591,7 +591,7 @@ function Contact() {
           text-align: center;
           margin-bottom: 20px;
           font-size: 1.5rem;
-          color: blue;
+          color: #007AFF;
         }
 
         .input-group {

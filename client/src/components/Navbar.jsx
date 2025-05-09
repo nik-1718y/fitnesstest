@@ -61,6 +61,7 @@ const NavItems = styled.ul`
   gap: 32px;
   padding: 0 6px;
   list-style: none;
+  
 
   @media screen and (max-width: 768px) {
    display: none;
@@ -145,19 +146,22 @@ const Navbar = ({ currentUser }) => {
           <Navlink to="/">Dashboard</Navlink>
           <Navlink to="/workouts">Workouts</Navlink>
           <Navlink to="/tutorials">Tutorials</Navlink>
-          <Navlink to="/blogs">Blogs</Navlink>
-          <Navlink to="/contact">Contact</Navlink>
+          {/* <Navlink to="/blogs">Blogs</Navlink> */}
+          {/* <Navlink to="/contact">Contact</Navlink> */}
+          <Navlink to="/contact">BMI</Navlink>
+          <Navlink to="/calorieTracker">Calorie</Navlink>
+          <Navlink to="/yogaSuggestions">WorkoutSuggestion</Navlink>
           
         </MobileMenu>
 
         <NavItems>
           <Navlink to="/">Dashboard</Navlink>
           <Navlink to="/workouts">Workouts</Navlink>
-          <Navlink to="/tutorials">Tutorials</Navlink>
-          <Navlink to="/workoutSuggestion">WorkoutSuggestion</Navlink>
+          {/* <Navlink to="/tutorials">Tutorials</Navlink> */}
+          {/* <Navlink to="/workoutSuggestion">WorkoutSuggestion</Navlink> */}
           <Navlink to="/contact">BMI</Navlink>
           <Navlink to="/calorieTracker">Calorie</Navlink>
-          <Navlink to="/yogaSuggestions">YogaSuggestions</Navlink>
+          <Navlink to="/yogaSuggestions">WorkoutSuggestion</Navlink>
         </NavItems>
 
         <UserContainer>

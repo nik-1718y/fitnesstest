@@ -338,7 +338,7 @@ const CalorieTracker = () => {
 
 const styles = {
   container: { padding: "20px", maxWidth: "600px", margin: "0 auto", backgroundColor: "#f9f9f9", borderRadius: "8px" },
-  header: { fontSize: "24px", fontWeight: "bold", marginBottom: "20px", textAlign: "center" },
+  header: { fontSize: "24px", fontWeight: "bold", marginBottom: "20px", textAlign: "center",color:"#007AFF" },
   form: { display: "flex", flexDirection: "column", gap: "10px", marginBottom: "20px" },
   input: { padding: "10px", border: "1px solid #ccc", borderRadius: "4px", fontSize: "16px" },
   button: { padding: "10px 20px", backgroundColor: "#007BFF", color: "#fff", border: "none", borderRadius: "4px", cursor: "pointer" },
