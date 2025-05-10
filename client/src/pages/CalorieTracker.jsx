@@ -66,7 +66,8 @@
 
 //   const fetchEntries = async () => {
 //     try {
-//       const res = await axios.get("http://localhost:8080/api/user/getCalorie", {
+      // const res = await axios.get("http://localhost:8080/api/user/getCalorie",
+const res=await axios.get("https://fitnesstest.onrender.com"){
 //         headers: { Authorization: `Bearer ${token}` },
 //       });
 //       setEntries(res.data);
