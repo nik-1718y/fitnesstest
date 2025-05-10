@@ -11,7 +11,7 @@ export const UserSignUp = async (data) => API.post("https://fitnesstest-server.o
 export const UserSignIn = async (data) => API.post("https://fitnesstest-server.onrender.com/user/signin", data);
 
 export const getDashboardDetails = async (token) =>
-     await API.get("/user/dashboard", {
+     await API.get("https://fitnesstest-server.onrender.com/user/dashboard", {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -28,7 +28,7 @@ export const getDashboardDetails = async (token) =>
         });
       
       export const addWorkout = async (token, data) =>
-        await API.post(`/user/workout`, data, {
+        await API.post(`https://fitnesstest-server.onrender.com/user/workout`, data, {
           headers: { Authorization: `Bearer ${token}` },
         });
         // export const addBmi = async (token, data) =>
