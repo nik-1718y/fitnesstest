@@ -217,15 +217,30 @@ const Dashboard = () => {
 -30 kg
 -10 min`);
 
+  // const dashboardData = async () => {
+  //   setLoading(true);
+  //   const token = localStorage.getItem("fitness");
+  //   await getDashboardDetails(token).then((res) => {
+  //     setData(res.data);
+  //     console.log(res.data);
+  //     setLoading(false);
+  //   });
+  // };
   const dashboardData = async () => {
-    setLoading(true);
-    const token = localStorage.getItem("fitness");
-    await getDashboardDetails(token).then((res) => {
-      setData(res.data);
-      console.log(res.data);
-      setLoading(false);
-    });
-  };
+  setLoading(true);
+  const token = localStorage.getItem("fitness");
+  try {
+    const res = await getDashboardDetails(token);
+    setData(res);
+    console.log(res);
+    setLoading(false);
+  } catch (error) {
+    console.error('Network error:', error.message);  // Add error logging
+    setLoading(false); // Stop loading spinner if there is an error
+    alert('There was an issue fetching the data. Please try again later.');
+  }
+};
+
   const getTodaysWorkout = async () => {
     setLoading(true);
     const token = localStorage.getItem("fitness");
