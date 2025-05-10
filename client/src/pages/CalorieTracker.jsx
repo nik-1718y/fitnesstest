@@ -275,7 +275,7 @@ const CalorieTracker = () => {
 
   const fetchEntries = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/api/user/getCalorie", {
+      const res = await axios.get("https://fitnesstest-server.onrender.com/user/getCalorie", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setEntries(res.data.entries);
