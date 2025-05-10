@@ -64,13 +64,10 @@ dotenv.config();  // Load environment variables
 
 const app = express();
 // app.use(cors());
-// app.use(cors({
-//   origin: 'https://fitnesstest-4.onrender.com', // ✅ Your frontend URL
-//   credentials: true
-// }));
 app.use(cors({
   origin: 'https://fitnesstest-4.onrender.com', // allow your frontend URL
   credentials: true, // if you're using cookies or HTTP auth
+   methods:["GET","POST","PUT","DELETE"],
 }));
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true }));
