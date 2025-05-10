@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 // import bcrypt from "bcrypt";
-=======
->>>>>>> b5be03e6d64412f8cbb6730f11a52c5740cd1747
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
