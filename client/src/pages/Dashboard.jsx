@@ -217,30 +217,17 @@ const Dashboard = () => {
 -30 kg
 -10 min`);
 
-  // const dashboardData = async () => {
-  //   setLoading(true);
-  //   const token = localStorage.getItem("fitness");
-  //   await getDashboardDetails(token).then((res) => {
-  //     setData(res.data);
-  //     console.log(res.data);
-  //     setLoading(false);
-  //   });
-  // };
-
   const dashboardData = async () => {
-  try {
     setLoading(true);
     const token = localStorage.getItem("fitness");
-    const res = await getDashboardDetails(token);
-    setData(res.data);
-    console.log(res.data);
-  } catch (error) {
-    console.error("Error fetching dashboard data:", error);
-  } finally {
-    setLoading(false);
-  }
-};
+    await getDashboardDetails(token).then((res) => {
+      setData(res.data);
+      console.log(res.data);
+      setLoading(false);
+    });
+  };
 
+ 
 
   const getTodaysWorkout = async () => {
     setLoading(true);
