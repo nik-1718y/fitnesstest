@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // import bcrypt from "bcrypt";
+=======
+>>>>>>> b5be03e6d64412f8cbb6730f11a52c5740cd1747
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -318,6 +321,85 @@ const calculateCaloriesBurnt = (workoutDetails) => {
 
 
 
+<<<<<<< HEAD
+=======
+
+
+
+
+
+// import BMIRecord from "../models/BMIRecord.js"; // replace with your model
+// import calculateBMI from "../utils/calculateBMI.js"; // a utility if you want to abstract the BMI calc
+
+// export const addBMI = async (req, res, next) => {
+//   try {
+//     const userId = req.user?.id;
+//     const { height, weight } = req.body;
+
+//     if (!height || !weight) {
+//       return next(createError(400, "Height and weight are required"));
+//     }
+
+//     const heightInMeters = height / 100;
+//     const bmiValue = weight / (heightInMeters * heightInMeters);
+
+//     if (isNaN(bmiValue)) {
+//       return next(createError(400, "Invalid height or weight format"));
+//     }
+
+//     const bmi = parseFloat(bmiValue.toFixed(2));
+
+//     // Optional: Save to DB
+//     const newRecord = await Bmi.create({
+//       user: userId,
+//       height,
+//       weight,
+//       bmi,
+//     });
+
+//     return res.status(201).json({
+//       message: "BMI calculated and stored successfully",
+//       data: newRecord,
+//     });
+//   } catch (err) {
+//     next(err);
+//   }
+// };
+// controllers/bmiController.js
+// import Bmi from "../models/Bmi.js";
+
+// export const addBMI = async (req, res, next) => {
+//   try {
+//     const { height, weight, bmi } = req.body;
+//     if (!height || !weight || !bmi) {
+//       return res.status(400).json({ message: "All fields are required" });
+//     }
+
+//     const newBmi = await Bmi.create({ height, weight, bmi });
+//     res.status(201).json({ message: "BMI data stored", data: newBmi });
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
+
+// export const addBmi = async (req, res) => {
+//   try {
+//     const { height, weight, bmi } = req.body;
+//     if (!height || !weight || !bmi) {
+//       return res.status(400).json({ message: "All fields are required" });
+//     }
+
+//     const newBmi = await Bmi.create({ height, weight, bmi });
+//     res.status(201).json({ message: "BMI stored successfully", data: newBmi });
+//   } catch (error) {
+//     console.error("Error saving BMI:", error.message);
+//     res.status(500).json({ message: "Server Error" });
+//   }
+// };
+
+
+>>>>>>> b5be03e6d64412f8cbb6730f11a52c5740cd1747
 export const addBmi = async (req, res) => {
   try {
     const { height, weight, bmi } = req.body;
