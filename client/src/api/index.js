@@ -69,7 +69,7 @@ export const getDashboardDetails = async (token) =>
 
 export const getCalories = async (token) => {
   try {
-    const response = await API.get('https://fitnesstest-server.onrender.comuser/getCalorie ', {
+    const response = await API.get('https://fitnesstest-server.onrender.com/user/getCalorie ', {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
