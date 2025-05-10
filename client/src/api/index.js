@@ -5,13 +5,14 @@ const API=axios.create({
     // baseURL:"http://localhost:8080/api",
     // baseURL:"https://fitnesstest.onrender.com"
     // baseURL:"https://fitnesstest-server.onrender.com"
-      baseURL:"https://fitnesstest-server.onrender.com"
+      // baseURL:"https://fitnesstest-server.onrender.com"
+    baseURL:"https://fitnesstest-server.onrender.com"
 });
 export const UserSignUp = async (data) => API.post("https://fitnesstest-server.onrender.com/user/signup", data);
 export const UserSignIn = async (data) => API.post("https://fitnesstest-server.onrender.com/user/signin", data);
 
 export const getDashboardDetails = async (token) =>
-     await API.get("/user/dashboard", {
+     await API.get("https://fitnesstest-server.onrender.com/user/dashboard", {
       headers: { Authorization: `Bearer ${token}` },
     });
 
