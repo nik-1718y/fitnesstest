@@ -22,10 +22,17 @@ export const getDashboardDetails = async (token) =>
 
 
 
-    export const getWorkouts = async (token, date) =>
-        await API.get(`/user/workout${date}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+//10/5/25
+    // export const getWorkouts = async (token, date) =>
+    //     await API.get(`/user/workout${date}`, {
+    //       headers: { Authorization: `Bearer ${token}` },
+    //     });
+
+export const getWorkouts = async (token, date) =>
+  await API.get(`/user/workout?date=${date}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
       
       export const addWorkout = async (token, data) =>
         await API.post(`/user/workout`, data, {
