@@ -11,7 +11,7 @@ export const UserSignUp = async (data) => API.post("https://fitnesstest-server.o
 export const UserSignIn = async (data) => API.post("https://fitnesstest-server.onrender.com/user/signin", data);
 
 export const getDashboardDetails = async (token) =>
-     await API.get("user/dashboard", {
+     await API.get("/user/dashboard", {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -74,7 +74,7 @@ export const getDashboardDetails = async (token) =>
 
 export const getCalories = async (token) => {
   try {
-    const response = await API.get('user/getCalorie ', {
+    const response = await API.get('/user/getCalorie ', {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
@@ -86,7 +86,7 @@ export const getCalories = async (token) => {
 
 export const addCalorie = async (token, data) => {
   try {
-    const response = await API.post('user/addCalorie ', data, {
+    const response = await API.post('/user/addCalorie ', data, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
