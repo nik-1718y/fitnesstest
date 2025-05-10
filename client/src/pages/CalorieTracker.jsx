@@ -289,7 +289,7 @@ const CalorieTracker = () => {
     e.preventDefault();
     try {
       await axios.post(
-        "http://localhost:8080/api/user/addCalorie",
+        "https://fitnesstest-4.onrender.com/user/addCalorie",
         { food, calories },
         { headers: { Authorization: `Bearer ${token}` } }
       );
