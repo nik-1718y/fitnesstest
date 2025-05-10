@@ -68,7 +68,9 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // Use user routes
-app.use("/api/user", UserRoutes);
+// app.use("/api/user", UserRoutes);
+app.use("/user", UserRoutes);
+
 
 // Error handler middleware
 app.use((err, req, res, next) => {
