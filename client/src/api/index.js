@@ -6,8 +6,8 @@ const API=axios.create({
     // baseURL:"https://fitnesstest.onrender.com"
     baseURL:"https://fitnesstest-server.onrender.com"
 });
-export const UserSignUp = async (data) => API.post("/user/signup", data);
-export const UserSignIn = async (data) => API.post("/user/signin", data);
+export const UserSignUp = async (data) => API.post("https://fitnesstest-server.onrender.com/user/signup", data);
+export const UserSignIn = async (data) => API.post("https://fitnesstest-server.onrender.com/user/signin", data);
 
 export const getDashboardDetails = async (token) =>
      await API.get("/user/dashboard", {
